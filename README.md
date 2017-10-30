@@ -1,31 +1,21 @@
-// viewController.swift som hentet fra nettet hvordan laste eksterne sider
-
+// viewController.swift som hentet fra nettet hvordan laste eksterne sider  https://developer.apple.com/documentation/webkit/wkwebview
 
 import UIKit
 import WebKit
-
-class ViewController: UIViewController {
+class ViewController: UIViewController, WKUIDelegate {
     
-    @IBOutlet var containerView : UIView! = nil
-    var webView: WKWebView?
-                            
+    var webView: WKWebView!
+    
     override func loadView() {
-        super.loadView()
-        
-        self.webView = WKWebView()
-        self.view = self.webView!
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        var url = NSURL(string:"http://www.kinderas.com/")
-        var req = NSURLRequest(URL:url)
-        self.webView!.loadRequest(req)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-}
+        
+        let myURL = URL(string: "https://www.apple.com")
+        let myRequest = URLRequest(url: myURL!)
+        webView.load(myRequest)
+    }}
